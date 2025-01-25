@@ -42,7 +42,7 @@ async function removeNote(id) {
                 return;
             }
         })
-        console.log(`Объект с id ${id} был обработан.`)
+        console.log(`Объект с id ${id} был удален.`)
 
 
 
@@ -56,6 +56,16 @@ async function printNotes() {
 
 }
 
+async function updateNotes(id, newTitle) {
+    const notes = await getNotes()
+    const noteId = notes.findIndex(note => note.id === id)
+    notes[noteId].title = newTitle
+
+    await fs.writeFile(notesPath, JSON.stringify(notes, null, 2))
+    return notes[noteId]
+
+}
+
 module.exports = {
-    addNote, printNotes, removeNote
+    addNote, getNotes, updateNotes, removeNote
 }
