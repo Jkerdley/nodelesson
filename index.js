@@ -49,7 +49,7 @@ app.put('/:id', async (req, res) => {
         await updateNotes(req.params.id, req.body.title);
         res.json({ success: true });
     } catch (error) {
-        console.log('Update Error:', error);
+        console.log('Ошибка обновления записи:', error);
     }
 });
 

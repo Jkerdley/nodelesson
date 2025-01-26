@@ -52,19 +52,19 @@ async function printNotes() {
 
 async function updateNotes(id, newTitle) {
     const notes = await getNotes()
-    const noteId = notes.findIndex(note => note.id === id)
+    const noteIndex = notes.findIndex(note => note.id === id)
 
-    if (noteId === -1) {
+    if (noteIndex === -1) {
         throw new Error(`Запись с id "${id}" не найдена`)
     }
 
-    if (!notes[noteId]) {
-        throw new Error(`Id ${noteId} не правильный! Возможно Id не существует.`)
+    if (!notes[noteIndex]) {
+        throw new Error(`Id ${noteIndex} не правильный! Возможно Id не существует.`)
     }
 
-    notes[noteId].title = newTitle
+    notes[noteIndex].title = newTitle
     await fs.writeFile(notesPath, JSON.stringify(notes, null, 2))
-    return notes[noteId]
+    return notes[noteIndex]
 }
 
 module.exports = {
