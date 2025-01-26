@@ -1,5 +1,3 @@
-
-
 const fs = require('fs/promises')
 const path = require('path')
 
@@ -9,10 +7,6 @@ const chalk = require("chalk")
 async function addNote(title) {
 
     const notes = await getNotes()
-    //
-    // const notes = require('./db.json')
-    // const notes = Buffer.from(buffer).toString('utf-8')
-
     const note = {
         title,
         id: Date.now().toString()
@@ -59,13 +53,20 @@ async function printNotes() {
 async function updateNotes(id, newTitle) {
     const notes = await getNotes()
     const noteId = notes.findIndex(note => note.id === id)
-    notes[noteId].title = newTitle
 
+    if (noteId === -1) {
+        throw new Error(`Запись с id "${id}" не найдена`)
+    }
+
+    if (!notes[noteId]) {
+        throw new Error(`Id ${noteId} не правильный! Возможно Id не существует.`)
+    }
+
+    notes[noteId].title = newTitle
     await fs.writeFile(notesPath, JSON.stringify(notes, null, 2))
     return notes[noteId]
-
 }
 
 module.exports = {
-    addNote, getNotes, updateNotes, removeNote
+    addNote, getNotes, updateNotes, removeNote, printNotes
 }
