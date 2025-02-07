@@ -10,6 +10,9 @@
 <% if (created) {%>
     <div class="alert alert-success">Note has been created</div>
     <%}%>
+<% if (error) {%>
+    <div class="alert alert-danger">Ошибка при создании заметки</div>
+<%}%>
     <div class="container">
         <h1><%= title %></h1>
         <form action="/" class="mb-2" method="post">
